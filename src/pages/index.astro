@@ -1,15 +1,46 @@
 ---
----
+import Mainlayout from "../layouts/Mainlayout.astro";
+import Testimonial from "../components/Testimonial.astro";
+import Form from "../components/Form.astro";
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+const url = "https://dvmptwdziademulaatzd.supabase.co/rest/v1/testimonials";
+const key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR2bXB0d2R6aWFkZW11bGFhdHpkIiwicm9sZSI6ImFub24iLCJpYXQiOjE2Nzg2OTc1MTMsImV4cCI6MTk5NDI3MzUxM30.89WAyrAnFikazYnvmF6-hyrpZt58wAyRMAw78SeHOhk";
+
+const response = await fetch(url,{
+    method:"GET",
+    headers: {
+        apikey: key,
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+       
+    },
+});
+const testimonials = await response.json();
+---
+<Mainlayout title="Testimonials">
+	<main>
+		<Form />
+<ul class="testimonialContainer">
+{testimonials.map((testimonial)=> {
+	return <Testimonial name={testimonial.name} comment={testimonial.text} />
+})
+}
+</ul>
+</main>
+<script>
+	console.log("url");
+</script>
+<style>
+	.testimonialContainer{
+		display:grid;
+		grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+		max-width: 1000px;
+		margin-inline: auto;
+	}
+	ul{
+		list-style: none;
+		padding:0;
+	}
+</style>
+</Mainlayout>
+
