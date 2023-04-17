@@ -1,15 +1,15 @@
 ---
-const {name, comment} = Astro.props;
+const {overskrift,name,text,link} = Astro.props;
 ---
 
-<li class="link-testimonial">
-	
-		<h2>
-			{name}
-			
-		</h2>
-		<p>
-			{comment}
-		</p>
-	
+<li class="testimonial">
+<h2>{overskrift}</h2>
+<p>{text}<br/><em>{name}</em></p>
+<a href={link}>Læs mere</a>
+
 </li>
+
+<style>
+
+
+</style>
